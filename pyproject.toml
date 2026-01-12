@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simple-dav-client"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "A minimal, robust command-line client for interacting with a WebDAV server over plain HTTP with no authentication."
 readme = "README.md"
 requires-python = ">=2"

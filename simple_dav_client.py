@@ -869,18 +869,47 @@ def main():
 
     # put command
     put_parser = subparsers.add_parser('put', help='Upload remote file or directory to remote directory')
-    put_parser.add_argument('-O', '--remote-directory-path', type=str, default='/',
-                            help='Remote directory where to save')
-    put_parser.add_argument('local_path', type=str, help='Local file or directory to upload')
+    put_parser.add_argument(
+        '-O',
+        '--remote-directory-path',
+        type=str,
+        default='/',
+        help='Remote directory where to save'
+    )
+    put_parser.add_argument(
+        'local_paths',
+        metavar='local_path',
+        type=str,
+        nargs='+',
+        help='Local file or directory (one or more) to upload'
+    )
 
     # get command
     get_parser = subparsers.add_parser('get', help='Download remote file or directory to local directory')
-    get_parser.add_argument('-O', '--local-directory-path', type=str, default='.', help='Local directory where to save')
-    get_parser.add_argument('remote_path', type=str, help='Remote file or directory to download')
+    get_parser.add_argument(
+        '-O',
+        '--local-directory-path',
+        type=str,
+        default='.',
+        help='Local directory where to save'
+    )
+    get_parser.add_argument(
+        'remote_paths',
+        metavar='remote_path',
+        type=str,
+        nargs='+',
+        help='Remote file or directory (one or more) to download'
+    )
 
     # rm command
     rm_parser = subparsers.add_parser('rm', help='Remove remote file or directory')
-    rm_parser.add_argument('remote_path', type=str, help='Remote file or directory')
+    rm_parser.add_argument(
+        'remote_paths',
+        metavar='remote_path',
+        type=str,
+        nargs='+',
+        help='Remote file or directory (one or more) to remove'
+    )
 
     args = parser.parse_args()
 
@@ -893,11 +922,14 @@ def main():
     elif args.command == 'mkdir':
         client.mkdir(remote_directory_path=args.remote_directory_path, p=args.p)
     elif args.command == 'put':
-        client.put(remote_directory_path=args.remote_directory_path, local_path=args.local_path)
+        for local_path in args.local_paths:
+            client.put(remote_directory_path=args.remote_directory_path, local_path=local_path)
     elif args.command == 'get':
-        client.get(local_directory_path=args.local_directory_path, remote_path=args.remote_path)
+        for remote_path in args.remote_paths:
+            client.get(local_directory_path=args.local_directory_path, remote_path=remote_path)
     elif args.command == 'rm':
-        client.rm(remote_path=args.remote_path)
+        for remote_path in args.remote_paths:
+            client.rm(remote_path=remote_path)
     else:
         parser.error('argument subcommand: not provided (choose from %s)' % (', '.join(subparsers.choices.keys()),))
 
