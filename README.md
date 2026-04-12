@@ -38,36 +38,38 @@ This tool is designed for **maximum clarity and correctness**:
 pip install simple-dav-client
 ```
 
+After installation, run it as `simple_dav_client`.
+
 ## Usage
 
 List a remote file or directory:
 
 ```commandline
-python -m simple_dav_client --host localhost --port 8080 ls /remote/file-or-directory
+simple_dav_client --host localhost --port 8080 ls /remote/file-or-directory
 ```
 
 Download a remote file or directory to `./local`:
 
 ```commandline
-python -m simple_dav_client --host localhost --port 8080 get -O ./local /remote/file-or-directory
+simple_dav_client --host localhost --port 8080 get -O ./local /remote/file-or-directory
 ```
 
 Upload a local file or directory to `/remote`:
 
 ```commandline
-python -m simple_dav_client --host localhost --port 8080 put -O /remote ./local/file-or-directory
+simple_dav_client --host localhost --port 8080 put -O /remote ./local/file-or-directory
 ```
 
 Create a remote directory (including parent directories):
 
 ```commandline
-python -m simple_dav_client --host localhost --port 8080 mkdir -p /remote/child-directory
+simple_dav_client --host localhost --port 8080 mkdir -p /remote/child-directory
 ```
 
 Remove a remote file or directory:
 
 ```commandline
-python -m simple_dav_client --host localhost --port 8080 rm /remote/file-or-directory
+simple_dav_client --host localhost --port 8080 rm /remote/file-or-directory
 ```
 
 ## Contributing
